@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  联系表（contact sheet）：把逐页截图铺成一屏，供整体审阅节奏与视觉一致性。
+  用法：放到 <任务目录>/tools/ 下，先跑 scripts/shots.mjs 生成 ../screenshots/p*.png，再
+        node scripts/headless-shot.mjs tools/contact-sheet.html 预览总览.png 3500 --w=1420 --h=830
+  页数不足 12 时会留空格；多于 12 会溢出到第 4 行——按实际页数改 TOTAL。
+  不要用 vision_analyze 逐张看单页截图来替代这一步：联系表一次就看清全局，省一大截上下文。
+-->
+<html lang="zh-CN"><head><meta charset="utf-8"><title>预览总览</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#04070d;padding:24px;font-family:"Segoe UI","Microsoft YaHei",sans-serif}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  figure{position:relative;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.12);
+    background:#070b16;box-shadow:0 8px 26px rgba(0,0,0,.5)}
+  img{display:block;width:100%;height:auto}
+  figcaption{position:absolute;left:0;top:0;font-size:12px;font-weight:700;color:#070b16;background:#35e0d0;
+    padding:2px 8px;border-bottom-right-radius:8px}
+</style></head>
+<body>
+<div class="grid" id="g"></div>
+<script>
+  var TOTAL = 12;   // 改成实际页数
+  var s = '';
+  for (var i = 1; i <= TOTAL; i++) {
+    var n = (i < 10 ? '0' : '') + i;
+    s += '<figure><img src="../screenshots/p' + n + '.png" alt="第' + i + '页"><figcaption>' + i + '</figcaption></figure>';
+  }
+  document.getElementById('g').innerHTML = s;
+</script>
+</body></html>
