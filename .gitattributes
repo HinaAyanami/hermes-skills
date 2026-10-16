@@ -1,0 +1,6 @@
+# 统一下载后的行尾，避免 Windows 检出把脚本改成 CRLF
+* text=auto eol=lf
+
+*.bat text eol=crlf
+*.png binary
+*.ico binary
